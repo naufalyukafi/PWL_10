@@ -3,15 +3,15 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left mt-3">
-                <h2>JURUSAN TEKNOLOGI INFORMASI-POLITEKNIK NEGERI MALANG</h2>
+                <h5 class="text-center">JURUSAN TEKNOLOGI INFORMASI - POLITEKNIK NEGERI MALANG</h5>
             </div>
             <div class="text-center my-3">
-                <h2>KARTU HASIL STUDI (KHS)</h2>    
+                <h6>KARTU HASIL STUDI (KHS)</h6>    
             </div>
             <div>
-                <h4><span class="text-bold">Nama:</span> {{$mahasiswa->name}}</h4>
-                <h4><span class="text-bold">Nim:</span> {{$mahasiswa->nim}}</h4>
-                <h4><span class="text-bold">Kelas:</span> {{$mahasiswa->kelas->nama_kelas}}</h4>
+                <h6><span class="text-bold">Nama:</span> {{$mahasiswa->name}}</h6>
+                <h6><span class="text-bold">Nim:</span> {{$mahasiswa->nim}}</h6>
+                <h6><span class="text-bold">Kelas:</span> {{$mahasiswa->kelas->nama_kelas}}</h6>
             </div>
         </div>
     </div>
@@ -37,8 +37,5 @@
     </tr>
 @endforeach
 </table>
-<div class="text-center">
-    <a href="{{ route('mahasiswa.cetakKhs', $mahasiswa->nim) }}" type="button" class="btn btn-danger mt-3">Cetak KHS</a>
-</div>
 
 @endsection
