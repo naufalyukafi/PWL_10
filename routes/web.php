@@ -19,7 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/articles/cetak_pdf', [ArticleController::class, 'cetak_pdf']);
+
 Route::get('/mahasiswa/nilai/{nim}', [MahasiswaController::class, 'showKhs'])->name('mahasiswa.showKhs');
+Route::get('/mahasiswa/nilai/{nim}/cetak_khs', [MahasiswaController::class, 'cetak_khs'])->name('mahasiswa.cetakKhs');
 
 Route::resource('articles', ArticleController::class);
 
