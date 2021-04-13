@@ -17,4 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/articles/cetak_pdf', [ArticleController::class, 'cetak_pdf']);
+
 Route::resource('articles', ArticleController::class);
+
