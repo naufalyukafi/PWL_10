@@ -49,21 +49,28 @@ class MahasiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {    
         //melakukan validasi data
         $request->validate([
             'nim' => 'required',
             'name' => 'required',
             'kelas_id' => 'required',
             'jurusan'=> 'required',
+            'image' => 'required',
         ]);
         // fungsi eloquent untuk menambahkan data
         // Mahasiswa::create($request->all());
+
+        $image_name = "";
+        if($request->file('image')) {
+            $image_name = $request->file('image')->store('images', 'public');
+        }
 
         $mahasiswa = new Mahasiswa;
         $mahasiswa->nim = $request->get('nim');
         $mahasiswa->name = $request->get('name');
         $mahasiswa->jurusan = $request->get('jurusan');
+        $mahasiswa->foto = $image_name;
 
         $kelas = new Kelas;
         $kelas->id = $request->get('kelas_id');
@@ -110,6 +117,7 @@ class MahasiswaController extends Controller
         //menampilkan detail data menemukan berdasarkan nim mahasiswa untuk di edit
         $Mahasiswa = Mahasiswa::with('kelas')->where('nim', $nim)->first();
         $kelas = Kelas::all(); //menampilkan data dari tabel kelas
+        // return view('articles.edit', ['article' => $article]);
         return view('mahasiswas.edit', compact('Mahasiswa', 'kelas'));
     }
 
@@ -132,9 +140,14 @@ class MahasiswaController extends Controller
         ]);
 
         $mahasiswa = Mahasiswa::with('kelas')->where('nim', $nim)->first();
+        if($mahasiswa->foto && file_exists('app/public/' . $mahasiswa->foto)) {
+            \Storage::delete('public/' . $mahasiswa->foto);
+        }
         $mahasiswa->nim = $request->get('nim');
         $mahasiswa->name = $request->get('name');
         $mahasiswa->jurusan = $request->get('jurusan');
+        $image_name = $request->file('image')->store('images', 'public');
+        $mahasiswa->foto = $image_name;
         $mahasiswa->save();
 
         $kelas = new Kelas;
